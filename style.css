@@ -1,4 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+/* 
+- defining custom properties(they're just variables
+- to define custome properties you need a scope)
+-
+ */
+:root {
+  --line-border-fill: #3498db;
+  --line-border-empty: #e0e0e0;
+}
+
 /* box sizing property so that if we add any padding to an ::-webkit-progress-inner-element
 or border it doesnt change the width  */
 * {
@@ -8,17 +19,110 @@ or border it doesnt change the width  */
 /*-display flex is the center everything flex grid
 -everything will be shown in an row
 -flex direction will change the layout as you want it
--aligns the items horizontally
 -justfiy content center it veetically
 */
 
 body {
+  background-color: #f6f7fb;
   font-family: "Roboto", sans-serif;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   overflow: hidden;
   margin: 0;
+}
+
+.container {
+  text-align: center;
+}
+
+/*
+- space between spaces the number out
+-postion relative so other thing can be positioned in front of it  
+*/
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 350px;
+}
+/* 
+ - when you use before or after you have to add content
+ */
+.progress-container::before {
+  content: "";
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  z-index: -1;
+}
+/* 
+- creating the blue line 
+*/
+.progress {
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+
+/* 
+- border radius of 50% because to make it rounded 
+- center the number in the circle so you use display flex 
+align items center and, justify content center 
+- transition because the border is gonna change 
+ */
+
+.circle {
+  background-color: #fff;
+  color: #999;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--line-border-empty);
+  transition: 0.4s ease;
+}
+
+.circle.active {
+  border-color: var(--line-border-fill);
+}
+
+.btn {
+  background-color: var(--line-border-fill);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.btn.active {
+  transform: scale(0.98);
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  cursor: not-allowed;
 }
